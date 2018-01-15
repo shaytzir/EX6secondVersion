@@ -1,5 +1,6 @@
 package fxml;
 
+import app.Cell;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.layout.GridPane;
@@ -12,6 +13,7 @@ import app.GeneralPlayer;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Vector;
 
 /**
  * Created by shaytzir on 13/01/2018.
@@ -19,16 +21,10 @@ import java.util.ArrayList;
 public class BoardController extends GridPane {
     int size;
     private Board board;
+    private GeneralPlayer player1;
+    private GeneralPlayer player2;
     private GameFlow gameFlow;
-    private StackPane panes[][];
     private ImageView imageBoard[][];
-    private ArrayList<ArrayList<Character>> matrix;
-    private String color1;
-    private String color2;
-    private char player1Color;
-    private char player2Color;
-    private int cellHeight;
-    private int cellWidth;
     private GameController controller;
     private Image empty;
     private Image possible;
@@ -37,18 +33,14 @@ public class BoardController extends GridPane {
 
     public BoardController(int size, GeneralPlayer player1, GeneralPlayer player2){
         this.size = size;
-        this.panes = new StackPane[size][size];
-        this.player1Color = player1.getSign();
-        this.player2Color = player2.getSign();
-        this.color1 = player1.getPlayerColor();
-        this.color2 = player2.getPlayerColor();
+        this.player1 =player1;
+        this.player2 = player2;
 
-        this.board = new Board(size, size, player2Color, player1Color);
-        this.matrix = this.board.getMatrix();
+        this.board = new Board(size, size, player2.getSign(), player1.getSign());
         this.imageBoard = new ImageView[size][size];
 
-        this.firstP = new Image(getClass().getClassLoader().getResourceAsStream("images/"+color1+".jpg"));
-        this.secondP = new Image(getClass().getClassLoader().getResourceAsStream("images/"+color2+".jpg"));
+        this.firstP = new Image(getClass().getClassLoader().getResourceAsStream("images/"+player1.getPlayerColor()+".jpg"));
+        this.secondP = new Image(getClass().getClassLoader().getResourceAsStream("images/"+player2.getPlayerColor()+".jpg"));
         this.empty = new Image(getClass().getClassLoader().getResourceAsStream("images/Empty.jpg"));
         this.possible = new Image(getClass().getClassLoader().getResourceAsStream("images/Possible.jpg"));
 
@@ -87,30 +79,38 @@ public class BoardController extends GridPane {
     public void draw() {
 
         this.getChildren().clear();
-
-        this.matrix = this.board.getMatrix();
+        ArrayList<ArrayList<Character>> matrix = this.board.getMatrix();
         this.getChildren().clear();
         int height = (int)this.getPrefHeight();
         int width = (int)this.getPrefWidth();
-        this.cellHeight = height / matrix.size();
-        this.cellWidth = width / matrix.get(0).size();
-
-
+        int cellHeight = height / matrix.size();
+        int cellWidth = width / matrix.get(0).size();
+        Vector<Cell> moves = gameFlow.getLogic().getMovesForCurrentPlayer();
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 char player = board.getSign(i,j);
                 // if the type is the first player type than set the cell image
                 // with the first player image
-                if (player == player1Color) {
+                if (player == player1.getSign()) {
                     imageBoard[i][j].setImage(this.firstP);
                     this.add(imageBoard[i][j], j, i);
                     // if the type is the second player type than set the cell
                     // image with the second player image
-                } else if (player == player2Color) {
+                } else if (player == player2.getSign()) {
                     imageBoard[i][j].setImage(this.secondP);
                     this.add(imageBoard[i][j], j, i);
                 } else {
-                    imageBoard[i][j].setImage(this.empty);
+                    boolean possible = false;
+                    for (int l = 0; l < moves.size(); l++) {
+                        if ((moves.get(l).x == i) && (moves.get(l).y == j)) {
+                            possible = true;
+                        }
+                    }
+                    if (possible) {
+                        imageBoard[i][j].setImage(this.possible);
+                    } else {
+                        imageBoard[i][j].setImage(this.empty);
+                    }
                     this.add(imageBoard[i][j],j ,i);
                 }
                 /* else { // check if the cell should be drawn as bolt
@@ -170,29 +170,14 @@ public class BoardController extends GridPane {
             Rectangle rec = new Rectangle(this.cellWidth, this.cellHeight, Color.GRAY);
             this.add(rec, c.y, c.x);
         }*/
-
-
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
-                final int x = i;
-                final int y = j;
-                this.panes[i][j] =  new StackPane();
-                this.panes[i][j].setOnMouseClicked(event1 -> {
-                    this.gameFlow.run(x, y);
-                    controller.draw();
-                   // this.draw();
-                });
-                add(this.panes[i][j], j, i);
-            }
-        }
     }
 
 
     public String getColor1() {
-        return color1;
+        return player1.getPlayerColor();
     }
     public String getColor2() {
-        return color2;
+        return player2.getPlayerColor();
     }
     public Board getBoard() { return this.board; }
 
