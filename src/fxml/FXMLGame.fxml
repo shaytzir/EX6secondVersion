@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<HBox fx:id="root" spacing="10.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="myapp.GameController">
+<HBox fx:id="root" spacing="10.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="fxml.GameController">
     <children>
     <VBox prefHeight="350.0" prefWidth="107.0">
         <Label fx:id="curP"/>

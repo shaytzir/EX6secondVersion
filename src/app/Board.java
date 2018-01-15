@@ -1,11 +1,5 @@
-package myapp;
+package app;
 
-import javafx.fxml.FXMLLoader;
-import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class Board {

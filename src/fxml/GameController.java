@@ -1,13 +1,16 @@
-package myapp;
+package fxml;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import app.*;
 
-import javax.xml.soap.Text;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -31,10 +34,18 @@ public class GameController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        SettingsFields settings = new SettingsFields();
-        int size = settings.getSize();
-        String player1Color = settings.getFirstColor();
-        String player2Color = settings.getSecondColor();
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLSettings.fxml"));
+        Parent parent = null;
+        try {
+            parent = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        SettingsController setControl = loader.getController();
+        int size = setControl.getSize();
+        String player1Color = setControl.getFirstColor();
+        String player2Color = setControl.getSecondColor();
 
         this.player1 = new HumanP(player1Color);
         this.player2 = new HumanP(player2Color);
@@ -44,17 +55,13 @@ public class GameController implements Initializable {
         guiBoard.setPrefHeight(350);
         root.getChildren().add(0, guiBoard);
 
-
-
         this.logic = new ReversiRules(guiBoard, player1, player2);
-        this.flow = new GameFlow(logic, this);
+        this.flow = new GameFlow(logic, this, guiBoard);
 
         this.draw();
 
         guiBoard.setGameFlow(flow);
         guiBoard.setGameController(this);
-
-
 
         guiBoard.draw();
     }
@@ -72,6 +79,15 @@ public class GameController implements Initializable {
         alert.setContentText(message);
         alert.showAndWait();
         return;
+    }
+
+    public void noMovesForCurrentPlayer() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("No Moves");
+        alert.setContentText("No Moves For " + flow.getCurrentPlayerColor());
+        alert.showAndWait();
+        return;
+
     }
 
 

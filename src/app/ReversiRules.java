@@ -1,4 +1,6 @@
-package myapp;
+package app;
+
+import fxml.BoardController;
 
 import java.util.Vector;
 
@@ -24,22 +26,16 @@ public class ReversiRules {
     }
 
     public void nextTurn(int x, int y) {
-        int row = 0, col = 0;
-        String choice, key;
-        char choiceToSend;
         //if the current player has no optional moves
         // he presses any key and the turn goes for the other player
         if (this.movesForCurrentPlayer.size() == 0) {
-
-            System.out.println("no more moves!!!");
-
-            //notify player he has no moves
-            //this.now_.noMovesForMe(this.screen_);////////////////////////////////////////////
+            System.out.println("NO MOVE");
             this.now_.passTurn();
             //switch between players and updated movesforcurrentplayer
             this.movesForCurrentPlayer.clear();
             switchPlayers();
             this.movesForCurrentPlayer = now_.getMovesForPlayer(this.gui.getBoard(), now_.getSign());
+         //   this.gui.draw();
             return;
             //if he has moves, let him choose one of them
         } else {
@@ -51,9 +47,7 @@ public class ReversiRules {
                     flag = true;
                 }
             }
-            if (!flag) {
-                return;
-            } else {
+            if (flag) {
                 System.out.println("valid move " + x + y);
                 this.setPlayerDisk(x,y);
                 this.flipFrom(x,y);
@@ -61,29 +55,11 @@ public class ReversiRules {
                 //switch between players
                 switchPlayers();
                 this.movesForCurrentPlayer = now_.getMovesForPlayer(this.gui.getBoard(), now_.getSign());
+                this.gui.draw();
             }
 
 
         }
-    }
-    public void doAfterClick(int row, int col) {
-        //set his choice to have his sign
-        setPlayerDisk(row, col);
-        //flip any disks standing in the way according to rules
-        flipFrom(row, col);
-        this.movesForCurrentPlayer.clear();
-        //switch between players
-        switchPlayers();
-        this.movesForCurrentPlayer = now_.getMovesForPlayer(this.gui.getBoard(), now_.getSign());
-    }
-    public boolean thisIsAOption(String choice) {
-        for(int i = 0; i < this.movesForCurrentPlayer.size(); i++) {
-            if(choice.charAt(0) -'0' - 1 == this.movesForCurrentPlayer.get(i).x
-                    && choice.charAt(2) -'0' - 1 == this.movesForCurrentPlayer.get(i).y) {
-                return true;
-            }
-        }
-        return false;
     }
 
     public boolean gameOver() {
@@ -140,9 +116,16 @@ public class ReversiRules {
     }
 
     public void switchPlayers() {
+
+        this.movesForCurrentPlayer.clear();
+
+
+        //switchPlayers();
         GeneralPlayer temp = now_;
         this.now_ = later_;
         later_ = temp;
+
+        this.movesForCurrentPlayer = now_.getMovesForPlayer(this.gui.getBoard(), now_.getSign());
     }
     public GeneralPlayer getCurrentPlayer() {
         return this.now_;
@@ -153,5 +136,10 @@ public class ReversiRules {
     }
 
     public Vector<Cell> getMovesForCurrentPlayer() { return this.movesForCurrentPlayer;}
+
+    public void updateBoard(int x, int y) {
+        setPlayerDisk(x, y);
+        flipFrom(x, y);
+    }
 
 }

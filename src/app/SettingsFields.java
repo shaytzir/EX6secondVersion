@@ -1,9 +1,11 @@
 package myapp;
 
 
-import java.io.BufferedReader;
-import java.io.FileReader;
+import java.io.*;
 
+/**
+ * Created by shaytzir on 14/01/2018.
+ */
 public class SettingsFields {
     private final String fileName = "settings.txt";
     private int size;
@@ -57,7 +59,7 @@ public class SettingsFields {
 
     /**
      *
-     * @return the color (in string) of the second player
+     * @return the color (in string) of the secp player
      */
     public String getSecondColor() {
         return this.secondColor;

@@ -1,4 +1,4 @@
-package myapp;
+package app;
 
 public class Point {
     public int x;

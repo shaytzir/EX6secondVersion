@@ -1,4 +1,4 @@
-package myapp;
+package app;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -11,7 +11,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         try {
-            GridPane root = FXMLLoader.load(getClass().getResource("FXMLMenu.fxml"));
+            GridPane root = FXMLLoader.load(getClass().getResource("../fxml/FXMLMenu.fxml"));
             Scene scene = new Scene(root,400,350);
             primaryStage.setTitle("Reversi");
             primaryStage.setScene(scene);

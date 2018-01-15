@@ -1,12 +1,10 @@
-package myapp;
+package fxml;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -87,30 +85,57 @@ public class SettingsController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         int i;
-        try {
-            //reader initialize all choice boxes to hold the last settings that were edited
-            BufferedReader reader = new BufferedReader(new FileReader("src/settings.txt"));
-            String line = reader.readLine();
-            if (line == null) {
-                throw new Exception("Empty File");
+        File settings = new File("src/settings.txt");
+        if (!settings.isFile()) {
+            try {
+                BufferedWriter writer = new BufferedWriter(new FileWriter("src/settings.txt"));
+                this.player1C = "Black";
+                writer.write(this.player1C);
+                writer.newLine();
+                this.player2C = "White";
+                writer.write(this.player2C);
+                writer.newLine();
+                this.size = 8;
+                writer.write(Integer.toString(this.size));
+                writer.close();
+            } catch (IOException e1) {
+                e1.printStackTrace();
             }
-            player1C = line;
-            choiceBox1.setValue(line);
-            line = reader.readLine();
-            if (line == null) {
-                throw new Exception("Settings aren't valid");
+        } else {
+            try {
+                //reader initialize all choice boxes to hold the last settings that were edited
+                BufferedReader reader = new BufferedReader(new FileReader("src/settings.txt"));
+                String line = reader.readLine();
+                if (line == null) {
+                    throw new Exception("Empty File");
+                }
+                player1C = line;
+                choiceBox1.setValue(line);
+                line = reader.readLine();
+                if (line == null) {
+                    throw new Exception("Settings aren't valid");
+                }
+                player2C = line;
+                choiceBox2.setValue(line);
+                line = reader.readLine();
+                if (line == null) {
+                    throw new Exception("Settings aren't valid");
+                }
+                size = Integer.parseInt(line);
+                choiceBox3.setValue(line);
+                reader.close();
+            } catch (Exception e) {
+                System.out.println("Exception in SettingsController");
             }
-            player2C = line;
-            choiceBox2.setValue(line);
-            line = reader.readLine();
-            if (line == null) {
-                throw new Exception("Settings aren't valid");
-            }
-            size = Integer.parseInt(line);
-            choiceBox3.setValue(line);
-            reader.close();
-        } catch (Exception e) {
-            System.out.println("couldn't read Settings file.");
         }
     }
+
+
+    public int getSize(){
+        return this.size;
+    }
+    public String getFirstColor() {
+        return this.player1C;
+    }
+    public String getSecondColor() {return this.player2C; }
 }
