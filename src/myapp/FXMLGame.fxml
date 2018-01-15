@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<HBox fx:id="root" spacing="10.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="myapp.GameController">
+    <children>
+    <VBox prefHeight="350.0" prefWidth="107.0">
+        <Label fx:id="curP"/>
+        <Label fx:id="player1Score" />
+        <Label fx:id="player2Score" />
+        <Text fx:id="winner"/>
+        <VBox prefHeight="236.0" prefWidth="107.0" spacing="10.0" />
+        <Button alignment="CENTER" blendMode="SRC_ATOP" cache="false" cancelButton="false" contentDisplay="CENTER" defaultButton="false" disable="false" minHeight="10.0" mnemonicParsing="false" mouseTransparent="false" onAction="#endGame" opacity="0.84" prefHeight="35.0" prefWidth="107.0" text="End Game" textAlignment="CENTER" textFill="#009987" textOverrun="LEADING_ELLIPSIS" underline="false" wrapText="false">
+            <effect>
+                <Lighting>
+                    <bumpInput>
+                        <Shadow />
+                    </bumpInput>
+                    <contentInput>
+                        <Glow level="0.04842767295597483" />
+                    </contentInput>
+                    <light>
+                        <javafx.scene.effect.Light.Distant color="#cc3100" />
+                    </light>
+                </Lighting>
+            </effect>
+            <font>
+                <Font name="Arial Bold" size="12.0" />
+            </font>
+        </Button>
+    </VBox>
+    </children>
+</HBox>
