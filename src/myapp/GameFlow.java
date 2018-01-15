@@ -18,12 +18,10 @@ public class GameFlow {
         this.controller = control;
     }
     public void run(int x, int y) {
-        if (!currentGame_.gameOver()) {
             currentGame_.nextTurn(x,y);
-        } else {
-            System.out.println("Game is over!");
-            controller.gameOver(currentGame_.whoWon());
-        }
+            if (currentGame_.gameOver()) {
+                controller.gameOver(currentGame_.whoWon());
+            }
     }
 
     public String getCurrentPlayerColor() { return this.currentGame_.getCurrentPlayer().getPlayerColor(); }

@@ -60,6 +60,7 @@ public class GameController implements Initializable {
     }
 
     public void gameOver(String winner) {
+
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("GAME OVER");
         String message;
