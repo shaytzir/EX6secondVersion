@@ -14,9 +14,6 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Vector;
 
-/**
- * Created by shaytzir on 13/01/2018.
- */
 public class BoardController extends GridPane {
     int size;
     private Board board;
@@ -30,23 +27,35 @@ public class BoardController extends GridPane {
     private Image firstP;
     private Image secondP;
 
+    /**
+     * construcor.
+     * @param size size of the board.
+     * @param player1 first player
+     * @param player2 second player
+     */
     public BoardController(int size, GeneralPlayer player1, GeneralPlayer player2){
         this.size = size;
-        this.player1 =player1;
+        this.player1 = player1;
         this.player2 = player2;
-
         this.board = new Board(size, size, player2.getSign(), player1.getSign());
         this.imageBoard = new ImageView[size][size];
+
         String theme = player1.getPlayerTheme();
         if (theme.equals("Fruit")) {
-            this.firstP = new Image(getClass().getClassLoader().getResourceAsStream("images/" + player1.getPlayerColor() + "2.jpg"));
-            this.secondP = new Image(getClass().getClassLoader().getResourceAsStream("images/" + player2.getPlayerColor() + "2.jpg"));
+            this.firstP = new Image(getClass().getClassLoader().
+                    getResourceAsStream("images/" + player1.getPlayerColor() + "2.jpg"));
+            this.secondP = new Image(getClass().getClassLoader().
+                    getResourceAsStream("images/" + player2.getPlayerColor() + "2.jpg"));
         } else {
-            this.firstP = new Image(getClass().getClassLoader().getResourceAsStream("images/" + player1.getPlayerColor() + ".jpg"));
-            this.secondP = new Image(getClass().getClassLoader().getResourceAsStream("images/" + player2.getPlayerColor() + ".jpg"));
+            this.firstP = new Image(getClass().getClassLoader().
+                    getResourceAsStream("images/" + player1.getPlayerColor() + ".jpg"));
+            this.secondP = new Image(getClass().getClassLoader().
+                    getResourceAsStream("images/" + player2.getPlayerColor() + ".jpg"));
         }
-        this.possible = new Image(getClass().getClassLoader().getResourceAsStream("images/Possible.jpg"));
-        this.empty = new Image(getClass().getClassLoader().getResourceAsStream("images/Empty.jpg"));
+        this.possible = new Image(getClass().getClassLoader().
+                getResourceAsStream("images/Possible.jpg"));
+        this.empty = new Image(getClass().getClassLoader().
+                getResourceAsStream("images/Empty.jpg"));
         // allocate each cell with image and set mouse click
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
@@ -58,6 +67,7 @@ public class BoardController extends GridPane {
                     Integer rowIndex = GridPane.getRowIndex(source);
                     // for a click call runGame in gameFlow
                     gameFlow.run(rowIndex, colIndex);
+                    controller.draw();
                 });
             }
         }
@@ -68,18 +78,22 @@ public class BoardController extends GridPane {
         try {
             fxmlLoader.load();
         } catch (IOException exception) {
-            System.out.println("Debug: exepction in boardController");
             throw new RuntimeException(exception);
-
         }
     }
 
+    /**
+     * set the GameFlow the board.
+     * @param flow GameFlow
+     */
     public void setGameFlow(GameFlow flow) {
         this.gameFlow = flow;
     }
 
+    /**
+     * draw this gui board.
+     */
     public void draw() {
-
         this.getChildren().clear();
         ArrayList<ArrayList<Character>> matrix = this.board.getMatrix();
         this.getChildren().clear();
@@ -91,102 +105,50 @@ public class BoardController extends GridPane {
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 char player = board.getSign(i,j);
-                // if the type is the first player type than set the cell image
-                // with the first player image
+                // if the player on the board is the first player, set his image
                 if (player == player1.getSign()) {
                     imageBoard[i][j].setImage(this.firstP);
                     this.add(imageBoard[i][j], j, i);
-                    // if the type is the second player type than set the cell
-                    // image with the second player image
+                    // if the player on the board is the second player, set his image
                 } else if (player == player2.getSign()) {
                     imageBoard[i][j].setImage(this.secondP);
                     this.add(imageBoard[i][j], j, i);
                 } else {
+                    //check if the cell is a possible move of the current player
                     boolean possible = false;
                     for (int l = 0; l < moves.size(); l++) {
                         if ((moves.get(l).x == i) && (moves.get(l).y == j)) {
                             possible = true;
                         }
                     }
+                    //if it is, set the board with the "possible" image
                     if (possible) {
                         imageBoard[i][j].setImage(this.possible);
+                        //if its not, set the empty cell image
                     } else {
                         imageBoard[i][j].setImage(this.empty);
                     }
+                    //add the set image
                     this.add(imageBoard[i][j],j ,i);
                 }
-                /* else { // check if the cell should be drawn as bolt
-                    boolean bolt = false;
-                    // if the cell should be bolt set the correct image
-                    for (int t = 0; t < list.size(); t++) {
-                        if (list.get(t).getX() == i && list.get(t).getY() == j) {
-                            imageBoardMatrix[i][j].setImage(boltCell);
-                            bolt = true;
-                        }
-                    } // if the cell should not be bolt
-                    if (!bolt) {
-                        imageBoardMatrix[i][j].setImage(emptyCell);
-                    } // add the cell as child
-                    this.add(imageBoardMatrix[i][j], j, i);
-                }*/
+                //update size by settings
                 imageBoard[i][j].setFitWidth(cellWidth);
                 imageBoard[i][j].setFitHeight(cellHeight);
             }
         }
-
-
-
-      /*  for (int i = 0; i < matrix.size(); i++) {
-            for (int j = 0; j < matrix.get(i).size(); j++) {
-                Rectangle r = new Rectangle(cellWidth, cellHeight, Color.WHITE);
-                r.setStroke(Color.BLACK);
-                this.add(r, j, i);
-                Circle c = new Circle();
-                if (matrix.get(i).get(j).equals(player1Color)) {
-                    c.setCenterX(i);
-                    c.setCenterY(j);
-                    c.setRadius(cellWidth/2);
-                    if (color1.toUpperCase().equals("WHITE")) {
-                        c.setStroke(Color.BLACK);
-                    }
-                    c.setFill(Paint.valueOf(color1.toUpperCase()));
-                    this.add(c, j, i);
-                } else if (matrix.get(i).get(j).equals(player2Color)) {
-                    c.setCenterX(i);
-                    c.setCenterY(j);
-                    c.setRadius(cellWidth/2);
-                    if (color2.toUpperCase().equals("WHITE")) {
-                        c.setStroke(Color.BLACK);
-                    }
-                    c.setFill(Paint.valueOf(color2.toUpperCase()));
-                    this.add(c, j, i);
-                }
-            }
-        }
-
-        Vector<Cell> movesForCurrentPlayer = this.gameFlow.getLogic().getMovesForCurrentPlayer();
-        for (int i = 0; i < movesForCurrentPlayer.size(); i++) {
-            final int moveX;
-            final int moveY;
-            Cell c = movesForCurrentPlayer.get(i);
-            Rectangle rec = new Rectangle(this.cellWidth, this.cellHeight, Color.GRAY);
-            this.add(rec, c.y, c.x);
-        }*/
     }
 
-
-    public String getColor1() {
-        return player1.getPlayerColor();
-    }
-    public String getColor2() {
-        return player2.getPlayerColor();
-    }
+    /**
+     *
+     * @return the actual board of the boardController
+     */
     public Board getBoard() { return this.board; }
 
+    /**
+     * set the game controller.
+     * @param controller Game Controller
+     */
     public void setGameController(GameController controller) {
         this.controller = controller;
     }
-
-    public String getCurrentPlayerColor() {return this.gameFlow.getCurrentPlayerColor(); }
-
 }

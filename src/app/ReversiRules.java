@@ -8,65 +8,35 @@ public class ReversiRules {
     private GeneralPlayer now_;
     private GeneralPlayer later_;
     private BoardController gui;
-    private Board board_;
     private GeneralPlayer blackP_;
     private GeneralPlayer whiteP_;
-   // private BoardController boardControl_;
     private Vector<Cell> movesForCurrentPlayer;
 
-    public ReversiRules(BoardController guiB, GeneralPlayer black, GeneralPlayer white){//, BoardController boardController) {
+    /**
+     * constructor.
+     * @param guiB the Board Controller
+     * @param black first player
+     * @param white second player
+     */
+    public ReversiRules(BoardController guiB, GeneralPlayer black, GeneralPlayer white){
         this.gui = guiB;
-        this.board_ = this.gui.getBoard();
         this.whiteP_ = white;
         this.blackP_ = black;
         now_ = blackP_;
         later_ = whiteP_;
-        //this.boardControl_ = boardController;
         movesForCurrentPlayer = now_.getMovesForPlayer(this.gui.getBoard(), now_.getSign());
     }
 
-    public void nextTurn(int x, int y) {
-        //if the current player has no optional moves
-        // he presses any key and the turn goes for the other player
-        if (this.movesForCurrentPlayer.size() == 0) {
-            System.out.println("NO MOVE");
-            this.now_.passTurn();
-            //switch between players and updated movesforcurrentplayer
-            this.movesForCurrentPlayer.clear();
-            switchPlayers();
-            this.movesForCurrentPlayer = now_.getMovesForPlayer(this.gui.getBoard(), now_.getSign());
-         //   this.gui.draw();
-            return;
-            //if he has moves, let him choose one of them
-        } else {
-            boolean flag = false;
-            for (int i = 0; i < movesForCurrentPlayer.size(); i++) {
-                int xMoveInput = movesForCurrentPlayer.get(i).x;
-                int yMoveInput = movesForCurrentPlayer.get(i).y;
-                if ((xMoveInput == x) && (yMoveInput == y)) {
-                    flag = true;
-                }
-            }
-            if (flag) {
-                System.out.println("valid move " + x + y);
-                this.setPlayerDisk(x,y);
-                this.flipFrom(x,y);
-                this.movesForCurrentPlayer.clear();
-                //switch between players
-                switchPlayers();
-                this.movesForCurrentPlayer = now_.getMovesForPlayer(this.gui.getBoard(), now_.getSign());
-                this.gui.draw();
-            }
-
-
-        }
-    }
-
+    /**
+     * checkes if the game is over.
+     * @return true if its over, else false
+     */
     public boolean gameOver() {
-        GeneralPlayer temp = now_;
+        // if the board is full the game is over
         if (this.gui.getBoard().fullBoard()) {
             return true;
         }
+        //if the board isnt full but both players has no moves, the game is over
         if (now_.getMovesForPlayer(this.gui.getBoard(), this.now_.getSign()).size() == 0) {
             if (later_.getMovesForPlayer(this.gui.getBoard(), this.later_.getSign()).size() == 0) {
                 return true;
@@ -75,6 +45,11 @@ public class ReversiRules {
         return false;
     }
 
+    /**
+     * set the disk on the board
+     * @param row row of the disk
+     * @param col col of the disk
+     */
     public void setPlayerDisk(int row, int col) {
         //if we set it on the other player existing disk, we need to
         //reduce the other player score in 1
@@ -89,17 +64,28 @@ public class ReversiRules {
         this.gui.getBoard().setSign(row, col, now_.getSign());
     }
 
+    /**
+     * flipping all disks that supposed to be flipped by rules.
+     * @param row the disk row
+     * @param col the disk col
+     */
     public void flipFrom(int row, int col) {
         for (int i = 0; i < movesForCurrentPlayer.size(); i++) {
             if ((movesForCurrentPlayer.get(i).x == row) && (movesForCurrentPlayer.get(i).y == col)) {
                 for (int j = 0; j < movesForCurrentPlayer.get(i).flip.size(); j++) {
-                    setPlayerDisk(movesForCurrentPlayer.get(i).flip.get(j).x, movesForCurrentPlayer.get(i).flip.get(j).y);
+                    setPlayerDisk(movesForCurrentPlayer.get(i).flip.get(j).x,
+                            movesForCurrentPlayer.get(i).flip.get(j).y);
                 }
             }
+            //reset the flipping points of the disk
             movesForCurrentPlayer.get(i).flip.clear();
         }
     }
 
+    /**
+     * after the game is over, choosing a winner by the scores.
+     * @return the winner's color or "tie" if its a tie.
+     */
     public String whoWon() {
         int scoreBlackP = blackP_.getScore();
         int scoreWhiteP = whiteP_.getScore();
@@ -112,34 +98,44 @@ public class ReversiRules {
             winner = "Tie";
         }
         return winner;
-
     }
 
+    /**
+     * switching between the players.
+     */
     public void switchPlayers() {
 
         this.movesForCurrentPlayer.clear();
-
-
-        //switchPlayers();
         GeneralPlayer temp = now_;
         this.now_ = later_;
         later_ = temp;
 
+        // updating the current player moves
         this.movesForCurrentPlayer = now_.getMovesForPlayer(this.gui.getBoard(), now_.getSign());
     }
+
+    /**
+     *getter.
+     * @return the current player
+     */
     public GeneralPlayer getCurrentPlayer() {
         return this.now_;
     }
 
-    public Board getBoard() {
-        return this.gui.getBoard();
-    }
 
+    /**
+     *getter.
+     * @return the current player's moves.
+     */
     public Vector<Cell> getMovesForCurrentPlayer() { return this.movesForCurrentPlayer;}
 
+    /**
+     * updating the board means setting the new disk, and flipping the right disks.
+     * @param x disk row
+     * @param y disk col
+     */
     public void updateBoard(int x, int y) {
         setPlayerDisk(x, y);
         flipFrom(x, y);
     }
-
 }

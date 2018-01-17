@@ -24,8 +24,7 @@ public class MenuController {
 
 
     /**
-     * btnStartClick func.
-     * handels event of start game button click
+     * dealing with clicking on the "start game" button
      */
     @FXML
     protected void startBtnClicked() {
@@ -37,13 +36,11 @@ public class MenuController {
             stage.setScene(scene);
             stage.show();
         } catch (Exception ex) {
-            System.out.println("exepction in start button clicked");
         }
     }
 
     /**
-     * btnSettings func.
-     * handels event of settings button click
+     * dealing with clicking on the setting button
      */
     @FXML
     protected void settingsBtnClicked() {
@@ -57,7 +54,6 @@ public class MenuController {
         }catch (Exception ex) {
 
         }
-
     }
 
 }

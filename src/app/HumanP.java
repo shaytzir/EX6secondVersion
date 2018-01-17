@@ -4,11 +4,17 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.Vector;
 
-public class HumanP implements GeneralPlayer{
+public class HumanP implements GeneralPlayer {
     private char sign_;
     private int disksNum_;
-    private  String color_;
+    private String color_;
     private String theme_;
+
+    /**
+     * constructor.
+     * @param playerColor Color of the player
+     * @param theme the theme of the player
+     */
     public HumanP(String playerColor, String theme) {
         this.color_ = playerColor;
         sign_ = playerColor.charAt(0);
@@ -16,22 +22,44 @@ public class HumanP implements GeneralPlayer{
         theme_ = theme;
     }
 
+    /**
+     *
+     * @param num number of disks to add to the player's score
+     */
     public void scoreUp(int num) {
         disksNum_ = disksNum_ + num;
     }
 
+    /**
+     *
+     * @return return the sign of the player
+     */
     public char getSign() {
         return sign_;
     }
 
+    /**
+     *
+     * @return the score of the player
+     */
     public int getScore() {
         return disksNum_;
     }
 
+    /**
+     *
+     * @param num number to reduce from this player score
+     */
     public void scoreDown(int num) {
         disksNum_ = disksNum_ - num;
     }
 
+    /**
+     *
+     * @param gameBoard the board to check on.
+     * @param sign the player sign.
+     * @return the possible moves for this player on th given board
+     */
     public Vector<Cell> getMovesForPlayer(Board gameBoard, char sign) {
         Vector<Cell> movesForCurrentPlayer = new Vector<>();
         //finding out all locations of the current player on the board
@@ -63,7 +91,7 @@ public class HumanP implements GeneralPlayer{
         if (!movesForCurrentPlayer.isEmpty()) {
             movesNoDuplicates.add(movesForCurrentPlayer.get(0));
         }
-        for (int i = 1; i < movesForCurrentPlayer.size();  i++) {
+        for (int i = 1; i < movesForCurrentPlayer.size(); i++) {
             int flag = 0;
             Cell c = movesForCurrentPlayer.get(i);
             int x = c.x;
@@ -80,25 +108,6 @@ public class HumanP implements GeneralPlayer{
                 movesNoDuplicates.add(c);
             }
         }
-        /*for (int point = 0; point < movesPoints.size(); point++) {
-            int pointX = movesPoints.get(point).x;
-            int pointY = movesPoints.get(point).y;
-            Vector<Point> sharedPoints = new Vector<>();
-            for (int i = 0; i < movesForCurrentPlayer.size(); i++) {
-                if ((movesForCurrentPlayer.get(i).x == pointX) && (movesForCurrentPlayer.get(i).y == pointY)) {
-                    sharedPoints.add(sharedPoints.end(),
-                            movesForCurrentPlayer.get(i).flip.begin(),
-                            movesForCurrentPlayer.get(i).flip.end() );
-                }
-
-            Cell c = new Cell();
-            c.x = pointX;
-            c.y = pointY;
-            c.flip = sharedPoints;
-            if (!movesNoDuplicates.contains(c)) {
-                movesNoDuplicates.add(c);
-            }
-        }*/
         // return movesForCurrentPlayer;
         return movesNoDuplicates;
     }
@@ -108,13 +117,19 @@ public class HumanP implements GeneralPlayer{
         return this.color_;
     }
 
+    /**
+     *
+     * @param sign sign of the player
+     * @param gameBoard board
+     * @return the locations of the player on the board
+     */
     public Vector<Point> getLocationsOfPlayerOnBoard(char sign, Board gameBoard) {
         Vector<Point> locations = new Vector<>();
         //for each row and col in the board
         for (int i = 0; i < gameBoard.getWidth(); i++) {
             for (int j = 0; j < gameBoard.getHeight(); j++) {
                 //if its the same sign as we're looking for, add to the vector
-                if (gameBoard.getSign(i,j) == sign) {
+                if (gameBoard.getSign(i, j) == sign) {
                     Point p = new Point();
                     p.x = i;
                     p.y = j;
@@ -125,6 +140,13 @@ public class HumanP implements GeneralPlayer{
         return locations;
     }
 
+    /**
+     *
+     * @param current sign of the player
+     * @param point a point to look for on the board
+     * @param gameBoard game board
+     * @return every move the specific point can make on the board
+     */
     public Vector<Cell> possibleMovesForOneDisk(char current, Point point, Board gameBoard) {
         Vector<Cell> possibleMoves = new Vector<>();
         Vector<Point> flippingPoints = new Vector<>();
@@ -155,7 +177,7 @@ public class HumanP implements GeneralPlayer{
                     if ((gameBoard.getSign(point.x + vertical, point.y + horizontal) == ' ') &&
                             ((horBackUp != horizontal) || (verBackUp != vertical))) {
                         Cell possibleMove = new Cell();
-                        possibleMove.x = point.x +vertical;
+                        possibleMove.x = point.x + vertical;
                         possibleMove.y = point.y + horizontal;
                         possibleMove.flip = flippingPoints;
                         // flippingPoints.clear();
@@ -173,43 +195,11 @@ public class HumanP implements GeneralPlayer{
         return possibleMoves;
     }
 
-    public String getNextMove(Board b) {
-        String choice = new String();
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        try {
-            choice = br.readLine();
-        } catch (Exception e) {
-
-        }
-        return choice;
-    }
-
- /*   public void printMyOptions(Visualization screen, Vector<Cell> myoptions) {
-        //let the human player know his optional moves
-        screen.printOptions(this.getSign(), myoptions);
-    }*/
-
-    public void passTurn() {
-        //"type anything" - gets an input and ignores it
-        String key;
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        try {
-            key = br.readLine();
-        } catch (Exception e) {
-
-        }
-    }
-
+    /**
+     *
+     * @return the theme
+     */
     public String getPlayerTheme() {
         return this.theme_;
     }
-    /* public void noMovesForMe(Visualization screen) {
-        //for normal human player - print he has no more moves
-        screen.printNoMoreMoves(this.getSign());
-
-    }*/
-
-   /* public void printItsnAOption(Visualization screen) {
-        screen.printError();
-    }*/
 }
