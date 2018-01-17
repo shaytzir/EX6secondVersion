@@ -34,7 +34,6 @@ public class GameController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
         FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLSettings.fxml"));
         Parent parent = null;
         try {
@@ -46,13 +45,13 @@ public class GameController implements Initializable {
         int size = setControl.getSize();
         String player1Color = setControl.getFirstColor();
         String player2Color = setControl.getSecondColor();
-
-        this.player1 = new HumanP(player1Color);
-        this.player2 = new HumanP(player2Color);
+        String gameTheme = setControl.getGameTheme();
+        this.player1 = new HumanP(player1Color, gameTheme);
+        this.player2 = new HumanP(player2Color, gameTheme);
 
         BoardController guiBoard = new BoardController(size, player1, player2);
-        guiBoard.setPrefWidth(300);
-        guiBoard.setPrefHeight(350);
+        guiBoard.setPrefWidth(400);
+        guiBoard.setPrefHeight(500);
         root.getChildren().add(0, guiBoard);
 
         this.logic = new ReversiRules(guiBoard, player1, player2);

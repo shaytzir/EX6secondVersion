@@ -1,94 +1,213 @@
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.text.Text?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.PasswordField?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.SeparatorMenuItem?>
-<?import javafx.scene.control.ChoiceBox?>
-<?import javafx.collections.FXCollections?>
-<?import java.lang.String?>
-<?import javafx.scene.control.ColorPicker?>
-<GridPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="fxml.SettingsController" alignment="center"
-          hgap="10" vgap="10">
-    <padding><Insets top="25" right="25" bottom="10"
-                     left="25"></Insets></padding>
-    <Text text="Settings Menu"
-          GridPane.rowIndex="0" GridPane.columnIndex="0"
-          GridPane.columnSpan="2"/>
-    <Label text="First player color:"
-           GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-    <ChoiceBox fx:id="choiceBox1"
-               GridPane.rowIndex="1" GridPane.columnIndex="2"
-               GridPane.columnSpan="2">
-        <items>
-            <FXCollections fx:factory="observableArrayList">
-                <String fx:value="Black" />
-                <String fx:value="Green" />
-                <String fx:value="White" />
-                <String fx:value="Pink" />
-                <String fx:value="Red" />
-                <String fx:value="Yellow" />
-            </FXCollections>
-        </items>
-    </ChoiceBox>
-    <Label text="Second player color:"
-           GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-    <ChoiceBox fx:id="choiceBox2"
-               GridPane.rowIndex="2" GridPane.columnIndex="2"
-               GridPane.columnSpan="2">
-        <items>
-            <FXCollections fx:factory="observableArrayList">
-                <String fx:value="Black" />
-                <String fx:value="Green" />
-                <String fx:value="White" />
-                <String fx:value="Pink" />
-                <String fx:value="Red" />
-                <String fx:value="Yellow" />
-            </FXCollections>
-        </items>
-    </ChoiceBox>
-    <Label text="Board size::"
-           GridPane.rowIndex="3" GridPane.columnIndex="0"/>
-    <ChoiceBox fx:id="choiceBox3"
-               GridPane.rowIndex="3" GridPane.columnIndex="2"
-               GridPane.columnSpan="2">
-        <items>
-            <FXCollections fx:factory="observableArrayList">
-                <String fx:value="4" />
-                <String fx:value="5" />
-                <String fx:value="6" />
-                <String fx:value="7" />
-                <String fx:value="8" />
-                <String fx:value="9" />
-                <String fx:value="10" />
-                <String fx:value="11" />
-                <String fx:value="12" />
-                <String fx:value="13" />
-                <String fx:value="14" />
-                <String fx:value="15" />
-                <String fx:value="16" />
-                <String fx:value="17" />
-                <String fx:value="18" />
-                <String fx:value="19" />
-                <String fx:value="20" />
-            </FXCollections>
-        </items>
-    </ChoiceBox>
-    <HBox alignment="bottom_right"
-          GridPane.rowIndex="5" GridPane.columnIndex="1">
-        <Button text="Save Changes" onAction="#save"/>
-    </HBox>
-    <HBox alignment="bottom_right"
-          GridPane.rowIndex="6" GridPane.columnIndex="1">
-        <Button text="Back" onAction="#back"/>
-    </HBox>
-    <Text fx:id="messageText"
-          GridPane.rowIndex="10" GridPane.columnIndex="0"/>
-</GridPane>
+<?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import java.lang.String?>
+<?import javafx.collections.*?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.geometry.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.ColorPicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.text.Text?>
+
+<GridPane id="1x1" alignment="CENTER" hgap="0.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0" vgap="0.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="fxml.SettingsController">
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" />
+  </columnConstraints>
+  <padding>
+    <Insets />
+  </padding>
+  <rowConstraints>
+    <RowConstraints maxHeight="500.0" prefHeight="500.0" />
+    <RowConstraints maxHeight="102.0" prefHeight="0.0" />
+    <RowConstraints maxHeight="0.0" prefHeight="0.0" />
+    <RowConstraints maxHeight="0.0" prefHeight="0.0" />
+    <RowConstraints maxHeight="152.0" prefHeight="0.0" />
+    <RowConstraints maxHeight="500.0" prefHeight="0.0" />
+    <RowConstraints maxHeight="0.0" prefHeight="0.0" />
+    <RowConstraints maxHeight="0.0" prefHeight="0.0" />
+    <RowConstraints maxHeight="0.0" prefHeight="0.0" />
+    <RowConstraints maxHeight="0.0" prefHeight="0.0" />
+  </rowConstraints>
+  <ImageView fitHeight="500.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="0" GridPane.rowIndex="0">
+    <image>
+      <Image url="@../images/81947d55718c2fe6c07bb89a32c44d2d.jpg" />
+    </image>
+  </ImageView>
+  <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
+    <children>
+      <ChoiceBox fx:id="choiceBox" prefHeight="34.0" prefWidth="132.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
+        <effect>
+          <InnerShadow>
+            <color>
+              <Color blue="0.878" green="1.000" red="0.000" fx:id="x1" />
+            </color>
+            <input>
+              <DropShadow />
+            </input>
+          </InnerShadow>
+        </effect>
+        <items>
+          <FXCollections fx:factory="observableArrayList">
+            <String fx:value="Fruit" />
+            <String fx:value="Donut" />
+          </FXCollections>
+        </items>
+      </ChoiceBox>
+      <ChoiceBox fx:id="choiceBox1" prefHeight="34.0" prefWidth="132.0" GridPane.columnIndex="3" GridPane.rowIndex="3">
+        <effect>
+          <InnerShadow color="$x1">
+            <input>
+              <DropShadow />
+            </input>
+          </InnerShadow>
+        </effect>
+        <items>
+          <FXCollections fx:factory="observableArrayList">
+            <String fx:value="Black" />
+            <String fx:value="Green" />
+            <String fx:value="White" />
+            <String fx:value="Pink" />
+            <String fx:value="Red" />
+            <String fx:value="Yellow" />
+            <String fx:value="Orenge" />
+          </FXCollections>
+        </items>
+      </ChoiceBox>
+      <ChoiceBox fx:id="choiceBox2" prefHeight="33.999900000002526" prefWidth="132.0" GridPane.columnIndex="3" GridPane.rowIndex="4">
+        <effect>
+          <InnerShadow color="$x1">
+            <input>
+              <DropShadow />
+            </input>
+          </InnerShadow>
+        </effect>
+        <items>
+          <FXCollections fx:factory="observableArrayList">
+            <String fx:value="Black" />
+            <String fx:value="Green" />
+            <String fx:value="White" />
+            <String fx:value="Pink" />
+            <String fx:value="Red" />
+            <String fx:value="Yellow" />
+            <String fx:value="Orenge" />
+          </FXCollections>
+        </items>
+      </ChoiceBox>
+      <ChoiceBox fx:id="choiceBox3" prefHeight="33.999900000002526" prefWidth="132.0" GridPane.columnIndex="3" GridPane.rowIndex="5">
+        <effect>
+          <InnerShadow color="$x1">
+            <input>
+              <DropShadow />
+            </input>
+          </InnerShadow>
+        </effect>
+        <items>
+          <FXCollections fx:factory="observableArrayList">
+            <String fx:value="4" />
+            <String fx:value="5" />
+            <String fx:value="6" />
+            <String fx:value="7" />
+            <String fx:value="8" />
+            <String fx:value="9" />
+            <String fx:value="10" />
+            <String fx:value="11" />
+            <String fx:value="12" />
+            <String fx:value="13" />
+            <String fx:value="14" />
+            <String fx:value="15" />
+            <String fx:value="16" />
+            <String fx:value="17" />
+            <String fx:value="18" />
+            <String fx:value="19" />
+            <String fx:value="20" />
+          </FXCollections>
+        </items>
+      </ChoiceBox>
+      <Button onAction="#save" prefHeight="34.0" prefWidth="132.0" text="Save Changes" GridPane.columnIndex="3" GridPane.rowIndex="6">
+        <effect>
+          <InnerShadow>
+            <color>
+              <Color blue="0.000" green="0.000" red="0.800" fx:id="x2" />
+            </color>
+            <input>
+              <DropShadow />
+            </input>
+          </InnerShadow>
+        </effect>
+        <font>
+          <Font name="Comic Sans MS" size="16.0" fx:id="x3" />
+        </font>
+      </Button>
+      <Button font="$x3" onAction="#back" prefHeight="34.000099999997474" prefWidth="132.0" text="Back" GridPane.columnIndex="3" GridPane.rowIndex="7">
+        <effect>
+          <InnerShadow color="$x2">
+            <input>
+              <DropShadow />
+            </input>
+          </InnerShadow>
+        </effect>
+      </Button>
+      <Label prefWidth="251.0" text="What do you prefer?" GridPane.columnIndex="1" GridPane.rowIndex="2">
+        <effect>
+          <DropShadow color="WHITE" height="10.952380952380953" radius="6.5" spread="1.0" width="17.047619047619047" />
+        </effect>
+        <font>
+          <Font name="Comic Sans MS" size="24.0" fx:id="x4" />
+        </font>
+      </Label>
+      <Label font="$x4" text="First player color:" GridPane.columnIndex="1" GridPane.rowIndex="3">
+        <effect>
+          <DropShadow color="WHITE" height="13.047619047619047" radius="6.023809523809524" spread="1.0" width="13.047619047619047" />
+        </effect>
+      </Label>
+      <Label font="$x4" text="Second player color:" GridPane.columnIndex="1" GridPane.rowIndex="4">
+        <effect>
+          <DropShadow color="WHITE" height="14.928571428571429" radius="6.458333333333334" spread="1.0" width="12.904761904761905" />
+        </effect>
+      </Label>
+      <Label font="$x4" text="Board size:" GridPane.columnIndex="1" GridPane.rowIndex="5">
+        <effect>
+          <DropShadow color="WHITE" height="10.952380952380953" radius="4.982142857142858" spread="1.0" width="10.976190476190476" />
+        </effect>
+      </Label>
+      <Text cache="true" cacheHint="SPEED" scaleX="1.4408504885689313" scaleY="1.287035726344387" stroke="#0052cc" text="Settings Menu" textAlignment="JUSTIFY" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1">
+        <font>
+          <Font name="Comic Sans MS" size="30.0" />
+        </font>
+      </Text>
+    </children>
+    <columnConstraints>
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="146.0" minWidth="10.0" prefWidth="83.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="239.0" minWidth="10.0" prefWidth="239.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="10.0" prefWidth="59.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="219.0" minWidth="10.0" prefWidth="219.0" />
+    </columnConstraints>
+    <rowConstraints>
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    </rowConstraints>
+  </GridPane>
+</GridPane>

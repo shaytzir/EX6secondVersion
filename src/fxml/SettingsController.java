@@ -18,6 +18,8 @@ public class SettingsController implements Initializable {
     @FXML
     Text messageText;
     @FXML
+    ChoiceBox<String> choiceBox;
+    @FXML
     ChoiceBox<String> choiceBox1;
     @FXML
     ChoiceBox<String> choiceBox2;
@@ -28,6 +30,8 @@ public class SettingsController implements Initializable {
      * not sure if needed, maybe the choiceboxes are enough already
      */
     @FXML
+    String gameTheme;
+    @FXML
     String player1C;
     @FXML
     String player2C;
@@ -37,6 +41,7 @@ public class SettingsController implements Initializable {
 
     @FXML
     protected void save() {
+        String theme = choiceBox.getSelectionModel().getSelectedItem();
         String player1Color = choiceBox1.getSelectionModel().getSelectedItem();
         String player2Color = choiceBox2.getSelectionModel().getSelectedItem();
         String size = choiceBox3.getSelectionModel().getSelectedItem();
@@ -45,11 +50,10 @@ public class SettingsController implements Initializable {
             messageText.setFill(Color.BLUE);
             return;
         }
-
-
-
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter("src/settings.txt"));
+            writer.write(theme);
+            writer.newLine();
             writer.write(player1Color);
             writer.newLine();
             writer.write(player2Color);
@@ -70,10 +74,9 @@ public class SettingsController implements Initializable {
      */
     protected void back() {
         try {
-
             Stage stage = (Stage)choiceBox1.getScene().getWindow();
             GridPane root = (GridPane) FXMLLoader.load(getClass().getResource("FXMLMenu.fxml"));
-            Scene scene = new Scene(root, 400, 350);
+            Scene scene = new Scene(root, 600, 500);
             stage.setTitle("Reversi");
             stage.setScene(scene);
             stage.show();
@@ -89,6 +92,9 @@ public class SettingsController implements Initializable {
         if (!settings.isFile()) {
             try {
                 BufferedWriter writer = new BufferedWriter(new FileWriter("src/settings.txt"));
+                this.gameTheme = "Donut";
+                writer.write(this.gameTheme);
+                writer.newLine();
                 this.player1C = "Black";
                 writer.write(this.player1C);
                 writer.newLine();
@@ -108,6 +114,12 @@ public class SettingsController implements Initializable {
                 String line = reader.readLine();
                 if (line == null) {
                     throw new Exception("Empty File");
+                }
+                this.gameTheme = line;
+                choiceBox.setValue(line);
+                line = reader.readLine();
+                if (line == null) {
+                    throw new Exception("Settings aren't valid");
                 }
                 player1C = line;
                 choiceBox1.setValue(line);
@@ -138,4 +150,6 @@ public class SettingsController implements Initializable {
         return this.player1C;
     }
     public String getSecondColor() {return this.player2C; }
+    public String getGameTheme() {return this.gameTheme; }
+
 }

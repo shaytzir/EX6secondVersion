@@ -61,5 +61,5 @@ public interface GeneralPlayer {
      * get the string (color) of the player
      */
     public String getPlayerColor();
-
+    public String getPlayerTheme();
 }

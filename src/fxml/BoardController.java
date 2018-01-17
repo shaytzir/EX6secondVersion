@@ -38,13 +38,17 @@ public class BoardController extends GridPane {
 
         this.board = new Board(size, size, player2.getSign(), player1.getSign());
         this.imageBoard = new ImageView[size][size];
-
-        this.firstP = new Image(getClass().getClassLoader().getResourceAsStream("images/"+player1.getPlayerColor()+".jpg"));
-        this.secondP = new Image(getClass().getClassLoader().getResourceAsStream("images/"+player2.getPlayerColor()+".jpg"));
-        this.empty = new Image(getClass().getClassLoader().getResourceAsStream("images/Empty.jpg"));
-        this.possible = new Image(getClass().getClassLoader().getResourceAsStream("images/Possible.jpg"));
-
-
+        String theme = player1.getPlayerTheme();
+        if (theme.equals("Fruit")) {
+            this.firstP = new Image(getClass().getClassLoader().getResourceAsStream("images/" + player1.getPlayerColor() + "2.jpg"));
+            this.secondP = new Image(getClass().getClassLoader().getResourceAsStream("images/" + player2.getPlayerColor() + "2.jpg"));
+            this.possible = new Image(getClass().getClassLoader().getResourceAsStream("images/Possible.jpg"));
+        } else {
+            this.firstP = new Image(getClass().getClassLoader().getResourceAsStream("images/" + player1.getPlayerColor() + ".jpg"));
+            this.secondP = new Image(getClass().getClassLoader().getResourceAsStream("images/" + player2.getPlayerColor() + ".jpg"));
+            this.possible = new Image(getClass().getClassLoader().getResourceAsStream("images/Possible.jpg"));
+        }
+        this.empty = new Image(getClass().getClassLoader().getResourceAsStream("images/Empty2.jpg"));
         // allocate each cell with image and set mouse click
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {

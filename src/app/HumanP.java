@@ -8,10 +8,12 @@ public class HumanP implements GeneralPlayer{
     private char sign_;
     private int disksNum_;
     private  String color_;
-    public HumanP(String playerColor) {
+    private String theme_;
+    public HumanP(String playerColor, String theme) {
         this.color_ = playerColor;
         sign_ = playerColor.charAt(0);
         disksNum_ = 2;
+        theme_ = theme;
     }
 
     public void scoreUp(int num) {
@@ -198,7 +200,10 @@ public class HumanP implements GeneralPlayer{
         }
     }
 
-   /* public void noMovesForMe(Visualization screen) {
+    public String getPlayerTheme() {
+        return this.theme_;
+    }
+    /* public void noMovesForMe(Visualization screen) {
         //for normal human player - print he has no more moves
         screen.printNoMoreMoves(this.getSign());
 

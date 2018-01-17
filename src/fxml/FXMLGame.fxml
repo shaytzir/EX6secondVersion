@@ -5,35 +5,69 @@
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<HBox fx:id="root" spacing="10.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="fxml.GameController">
-    <children>
-    <VBox prefHeight="350.0" prefWidth="107.0">
-        <Label fx:id="curP"/>
-        <Label fx:id="player1Score" />
-        <Label fx:id="player2Score" />
-        <Text fx:id="winner"/>
-        <VBox prefHeight="236.0" prefWidth="107.0" spacing="10.0" />
-        <Button alignment="CENTER" blendMode="SRC_ATOP" cache="false" cancelButton="false" contentDisplay="CENTER" defaultButton="false" disable="false" minHeight="10.0" mnemonicParsing="false" mouseTransparent="false" onAction="#endGame" opacity="0.84" prefHeight="35.0" prefWidth="107.0" text="End Game" textAlignment="CENTER" textFill="#009987" textOverrun="LEADING_ELLIPSIS" underline="false" wrapText="false">
-            <effect>
-                <Lighting>
-                    <bumpInput>
-                        <Shadow />
-                    </bumpInput>
-                    <contentInput>
-                        <Glow level="0.04842767295597483" />
-                    </contentInput>
-                    <light>
-                        <javafx.scene.effect.Light.Distant color="#cc3100" />
-                    </light>
-                </Lighting>
-            </effect>
-            <font>
-                <Font name="Arial Bold" size="12.0" />
-            </font>
-        </Button>
-    </VBox>
-    </children>
+<HBox fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" spacing="0.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="fxml.GameController">
+  <children>
+    <Pane prefHeight="500.0" prefWidth="200.0">
+      <children>
+        <ImageView fitHeight="500.0" fitWidth="200.0" layoutX="0.0" layoutY="0.0" pickOnBounds="true" preserveRatio="true">
+          <image>
+            <Image url="@../images/game.jpg" />
+          </image>
+        </ImageView>
+        <GridPane layoutX="0.0" layoutY="0.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="200.0001220703125">
+          <children>
+            <Button alignment="CENTER" blendMode="MULTIPLY" cache="false" cancelButton="false" contentDisplay="CENTER" defaultButton="false" disable="false" minHeight="10.0" minWidth="58.0" mnemonicParsing="false" mouseTransparent="false" onAction="#endGame" opacity="0.84" prefHeight="39.88421630859375" prefWidth="188.0" text="End Game" textAlignment="CENTER" textFill="BLACK" textOverrun="LEADING_ELLIPSIS" underline="false" wrapText="false" GridPane.columnIndex="1" GridPane.rowIndex="5">
+              <effect>
+                <DropShadow />
+              </effect>
+              <font>
+                <Font name="Comic Sans MS Bold" size="20.0" />
+              </font>
+            </Button>
+            <Label fx:id="player2Score" minHeight="9.0" prefHeight="25.0" prefWidth="204.0" text="" GridPane.columnIndex="1" GridPane.rowIndex="2">
+              <effect>
+                <DropShadow height="7.0" radius="3.0" spread="1.0" width="7.0">
+                  <color>
+                    <Color blue="1.000" green="0.929" red="0.400" fx:id="x1" />
+                  </color>
+                </DropShadow>
+              </effect>
+              <font>
+                <Font name="Comic Sans MS" size="16.0" fx:id="x2" />
+              </font>
+            </Label>
+            <Label fx:id="curP" font="$x2" prefHeight="25.0" prefWidth="189.0" text="" GridPane.columnIndex="1" GridPane.rowIndex="0">
+              <effect>
+                <DropShadow color="$x1" height="7.0" radius="3.0" spread="1.0" width="7.0" />
+              </effect>
+            </Label>
+            <Label fx:id="player1Score" font="$x2" minHeight="5.0" prefHeight="30.0" prefWidth="204.0" text="" GridPane.columnIndex="1" GridPane.rowIndex="1">
+              <effect>
+                <DropShadow color="$x1" height="7.0" radius="3.0" spread="1.0" width="7.0" />
+              </effect>
+            </Label>
+            <Text fx:id="winner" font="$x2" scaleX="1.6235232797807508" scaleY="1.3098708547648734" smooth="false" text="" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+          </children>
+          <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="65.0" minWidth="0.0" prefWidth="5.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="190.0" minWidth="0.0" prefWidth="189.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="67.0" minWidth="0.0" prefWidth="7.0" />
+          </columnConstraints>
+          <rowConstraints>
+            <RowConstraints maxHeight="96.0" minHeight="10.0" prefHeight="55.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="135.0" minHeight="10.0" prefHeight="59.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="171.0" minHeight="10.0" prefHeight="60.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="261.0" minHeight="10.0" prefHeight="261.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="95.0" minHeight="10.0" prefHeight="65.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="95.0" minHeight="10.0" prefHeight="65.0" vgrow="SOMETIMES" />
+          </rowConstraints>
+        </GridPane>
+      </children>
+    </Pane>
+  </children>
 </HBox>
