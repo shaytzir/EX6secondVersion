@@ -4,7 +4,6 @@ import app.Cell;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import app.Board;
@@ -42,13 +41,12 @@ public class BoardController extends GridPane {
         if (theme.equals("Fruit")) {
             this.firstP = new Image(getClass().getClassLoader().getResourceAsStream("images/" + player1.getPlayerColor() + "2.jpg"));
             this.secondP = new Image(getClass().getClassLoader().getResourceAsStream("images/" + player2.getPlayerColor() + "2.jpg"));
-            this.possible = new Image(getClass().getClassLoader().getResourceAsStream("images/Possible.jpg"));
         } else {
             this.firstP = new Image(getClass().getClassLoader().getResourceAsStream("images/" + player1.getPlayerColor() + ".jpg"));
             this.secondP = new Image(getClass().getClassLoader().getResourceAsStream("images/" + player2.getPlayerColor() + ".jpg"));
-            this.possible = new Image(getClass().getClassLoader().getResourceAsStream("images/Possible.jpg"));
         }
-        this.empty = new Image(getClass().getClassLoader().getResourceAsStream("images/Empty2.jpg"));
+        this.possible = new Image(getClass().getClassLoader().getResourceAsStream("images/Possible.jpg"));
+        this.empty = new Image(getClass().getClassLoader().getResourceAsStream("images/Empty.jpg"));
         // allocate each cell with image and set mouse click
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
