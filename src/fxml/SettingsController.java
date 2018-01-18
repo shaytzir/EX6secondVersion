@@ -41,7 +41,7 @@ public class SettingsController implements Initializable {
 
 
     /**
-     * dealing with clicking the "save" button
+     * dealing with clicking the "save" button, writing to file the updated settings
      */
     @FXML
     protected void save() {
@@ -50,6 +50,30 @@ public class SettingsController implements Initializable {
         String player1Color = choiceBox1.getSelectionModel().getSelectedItem();
         String player2Color = choiceBox2.getSelectionModel().getSelectedItem();
         String size = choiceBox3.getSelectionModel().getSelectedItem();
+        if (theme == null) {
+            Alert themeAlert = new Alert(Alert.AlertType.ERROR);
+            themeAlert.setContentText
+                    ("You Have To Choose A Theme!");
+            themeAlert.showAndWait();
+            return;
+        }
+
+        if ((player1Color == null) || (player2Color == null)) {
+            Alert colorAlert = new Alert(Alert.AlertType.ERROR);
+            colorAlert.setContentText
+                    ("Missing Color For Players");
+            colorAlert.showAndWait();
+            return;
+        }
+
+        if (size == null ) {
+            Alert sizeAlert = new Alert(Alert.AlertType.ERROR);
+            sizeAlert.setContentText
+                    ("You Have To Choose Size For The Board");
+            sizeAlert.showAndWait();
+            return;
+        }
+
         //if both players chose the same color, pop an alert
         if (player1Color.equals(player2Color)) {
             Alert sameColors = new Alert(Alert.AlertType.ERROR);
@@ -97,30 +121,19 @@ public class SettingsController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        int i;
-        File settings = new File("settings.txt");
-        //if its the first time running the game/after deleting the settings file
-        if (!settings.isFile()) {
-            //write a default settings file and use the same settings to this game
-            try {
-                BufferedWriter writer = new BufferedWriter(new FileWriter("settings.txt"));
-                this.gameTheme = "Donut";
-                writer.write(this.gameTheme);
-                writer.newLine();
-                this.player1C = "Black";
-                writer.write(this.player1C);
-                writer.newLine();
-                this.player2C = "White";
-                writer.write(this.player2C);
-                writer.newLine();
-                this.size = 8;
-                writer.write(Integer.toString(this.size));
-                writer.close();
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            }
-            //if the file exists, use the last modified settings file
-        } else {
+        String fileName = "settings.txt";
+        readFile(fileName);
+        save();
+    }
+
+
+    /**
+     * trying to read settings from file, if they dont exists, setting default settings.
+     * @param name name of the settings file
+     */
+    public void readFile(String name) {
+        File settings = new File(name);
+        if (settings.exists()) {
             try {
                 //reader initialize all choice boxes to hold the last settings that were edited
                 BufferedReader reader = new BufferedReader(new FileReader("settings.txt"));
@@ -152,8 +165,20 @@ public class SettingsController implements Initializable {
             } catch (Exception e) {
                 System.out.println("Exception in SettingsController");
             }
+
+        } else {
+            this.gameTheme = "Donut";
+            this.choiceBox.setValue(gameTheme);
+            this.player1C = "Black";
+            this.choiceBox1.setValue(player1C);
+            this.player2C = "White";
+            this.choiceBox2.setValue(player2C);
+            this.size = 8;
+            this.choiceBox3.setValue(Integer.toString(size));
         }
     }
+
+
 
 
     /**

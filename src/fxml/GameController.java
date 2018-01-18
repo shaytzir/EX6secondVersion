@@ -44,8 +44,10 @@ public class GameController implements Initializable {
         String player1Color = setControl.getFirstColor();
         String player2Color = setControl.getSecondColor();
         String gameTheme = setControl.getGameTheme();
+
         this.player1 = new HumanP(player1Color, gameTheme);
         this.player2 = new HumanP(player2Color, gameTheme);
+
 
         //create new gui board
         BoardController guiBoard = new BoardController(size, player1, player2);
