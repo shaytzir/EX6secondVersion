@@ -1,0 +1,10 @@
+63c36c7 - shaytzir, 6 minutes ago : fixed bug of writing to file
+ddbc541 - shaytzir, 25 hours ago : final version, added comments
+2744a7a - yuvalhoch, 28 hours ago : 17/1 - design changes
+2e20779 - yuvalhoch, 29 hours ago : 17/1 - design changes
+08f5b19 - yuvalhoch, 29 hours ago : 17/1 - design changes
+fa8bc62 - shaytzir, 3 days ago : added images directory, images can be replaced but must have the same name
+28aad20 - shaytzir, 3 days ago : board now draws possible moves for current player
+d678085 - shaytzir, 3 days ago : changed the BoardController to hold images, edited to run function in gameflow to call func from the logic
+4efbe77 - shaytzir, 3 days ago : dealing with game over
+6a3369f - shaytzir, 3 days ago : Initial commit
